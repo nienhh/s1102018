@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>蔬服食譜</title>
+
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../_css/site.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+
+    <style>
+
+        html{
+            scroll-behavior: smooth;
+            scrollbar-color: #000;
+            
+        }
+
+          
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+   
+
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+        
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+
+            box-sizing: border-box;
+            width: 280px;
+            height: 80px;
+
+            text-decoration: none;
+            border: solid 3px #000;
+            border-radius: 40px;
+            background: #f4cf47;
+            position: relative;
+            left: 32%;
+        }
+
+        .button_godown{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .button_text{
+            letter-spacing: 4px;
+            color: #000;
+            font: normal 38px 'League Gothic', Arial, sans-serif;
+            transition: all .3s ease;
+        }
+
+        .button::before{
+            content: '';
+
+            position: absolute;
+            right: 20px;
+
+            margin: auto 0;
+            width: 24px;
+            height: 24px;
+
+            background: #f4cf47;
+            transition: all .2s ease;
+            
+        }
+
+        .button:hover .button_text{
+            letter-spacing: 6px;
+        }
+
+        .button:hover .button_godown::before{
+            transform: translate(-20px);
+        }
+
+        .button:hover .button_godown::after{
+            transform: rotateY(180deg) translate(-20px);
+        }
+
+        .button:hover::before{
+            right:14px
+        }
+
+        .introduce{
+            margin:0px auto;
+            text-align: center;
+        }
+
+        
+        .introduce div{
+            display: inline-block;
+            vertical-align: top;
+	        width: 200px;
+	        height: 400px;
+	        /*border: 1px solid #000;*/
+	        border-radius: 3px;
+	        margin: 20px;
+            margin-top:200px;
+            font-size:14px;
+            line-height: 1.5em;
+        }
+
+        .bigtext{
+            text-align: center;
+            font-size: 40px;
+        }
+
+        #arrow_down{
+            margin-top: 180px;
+            margin-bottom:110px;
+            border-top: 10px solid black;
+            border-right: 10px solid black;
+            transform: rotate(135deg);
+            width: 60px;
+            height: 60px;
+            margin-left:150px;
+        }
+
+        .empty{
+            width: 500px;
+            height: 500px;
+        }
+
+
+
+        .about{
+            margin-top: 0px;
+        }
+
+        #empty2{
+            width: 80px;
+            height: 200px;
+        }
+
+        .about{
+            background-image:url(../img/about2.png);
+            width: 1200px;
+            height: 800px;
+            background-size: 100%;
+            margin-left: 300px;
+            margin-bottom:50px;
+            
+        }
+
+        #about_us{
+            margin-left:300px ;
+            position: absolute;
+            margin-top: 400px;
+            
+            
+        }
+
+        #about_us1{
+            margin-left:600px ;
+            position: absolute;
+            margin-top: 250px;
+        }
+        
+        #rightBar {
+            z-index: 9999;
+            width: 50px;
+            position: fixed;
+            right: 10px;
+            bottom: 5%;
+            height: auto;
+        }
+        #rightBar .btn {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .zoom-image {
+            transition: transform 0.3s ease;
+        }
+
+        .zoom-image.zoomed {
+            transform: scale(1.2); 
+        }
+        #slideshow-container {
+            margin-top: 200px;
+            margin-bottom: 80px;
+            width: 100%;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #prev-btn,
+        #next-btn {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 50px;
+        background-color: rgba(184, 174, 174, 0.5);
+        color: #ffffff;
+        font-size: 24px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        }
+
+        #prev-btn {
+        left: 10px;
+        }
+
+        #next-btn {
+        right: 10px;
+        }   
+
+        
+
+        
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');
+
+
+            }, function () {
+
+                $(this).stop().animate({
+                    'left': '-110px',
+                    'background-color': 'rgb(250, 235, 215)'
+                }, 500, 'easeOutBounce');
+            });
+
+
+
+            $('#arrow_down').mouseover(function(){
+                $(this).css({
+                    'margin-top': '180px',
+                    'margin-bottom':'110px',
+                    'border-top': '20px solid black',
+                    'border-right': '20px solid black',
+                    'transform': 'rotate(135deg)',
+                    'width': '60px',
+                    'height': '60px',
+                    'margin-left':'150px'
+                });
+            }).mouseout(function(){
+                $(this).css({
+                    'margin-top': '180px',
+                    'margin-bottom':'110px',
+                    'border-top': '10px solid black',
+                    'border-right': '10px solid black',
+                    'transform': 'rotate(135deg)',
+                    'width': '60px',
+                    'height': '60px',
+                    'margin-left':'150px'
+                });
+            });
+            
+            $('.zoom-image').mouseover(function() {
+                $(this).addClass('zoomed');
+            }).mouseout(function(){
+                $(this).removeClass('zoomed');
+            });
+
+            
+            
+            var currentSlide = 0;
+
+  
+            function showSlide() {
+                $('.slide').hide();
+                $('.slide').eq(currentSlide).fadeIn(500);
+            }
+
+  
+            function nextSlide() {
+                currentSlide++;
+                if (currentSlide >= $('.slide').length) {
+                    currentSlide = 0;
+                }
+                showSlide();
+            }
+
+  
+            function prevSlide() {
+                currentSlide--;
+                 if (currentSlide < 0) {
+                    currentSlide = $('.slide').length - 1;
+                }
+                showSlide();
+            }
+
+  
+            $('#next-btn').click(nextSlide);
+            $('#prev-btn').click(prevSlide);
+
+  
+            showSlide();
+
+            
+
+
+
+
+});
+
+
+
+
+
+
+        
+
+    </script>
+</head>
+
+
+<body>
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+
+        
+
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="留言板"></a>
+                <a href="#about_us"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="main">
+                <div id="slideshow-container">
+                    <div class="slide">
+                      <img src="../img/slide1.png">
+                    </div>
+                    <div class="slide">
+                      <img src="../img/slide2.png">
+                    </div>
+                    <div class="slide">
+                      <img src="../img/slide3.png">
+                    </div>
+                    <div class="slide">
+                      <img src="../img/slide4.png">
+                    </div>
+                    <div class="slide">
+                      <img src="../img/slide5.png">
+                    </div>
+                  </div>
+                  <div id="prev-btn">&lt;</div>
+                  <div id="next-btn">&gt;</div>
+                  
+                
+            </div>
+            <a href="#introduce" class="button" id="button_godown">
+                <div class="button_godown">
+                    <span class="button_text">ENTRY</span>
+                </div>
+            </a>
+
+            
+        </div>
+
+        <div class="empty"></div>
+        
+
+        <div class="content">
+            <div class="introduce" id="introduce">
+                <div id="search">
+                    <p><a href="search.html"><img src="../img/search.png" class="zoom-image" alt="" width="100" height="100"></a></p>
+                    <p class="bigtext">搜尋</p>
+                    <br><br>
+                    <p>搜尋:搜尋功能可以提供您來查詢此網站中出現的蔬食食譜，您可以依照「推薦菜單」中出現的關鍵字來進行查詢。（若有輸入錯誤的問題，會跳出小視窗來提醒您）</p>
+                    
+                </div>
+                <div id="messageBoard">
+                    <p><a href="messageBoard.html"><img src="../img/messageBoard.png" class="zoom-image" alt="" width="100" height="100"></a></p>
+                    <p class="bigtext">留言板</p>
+                    <br><br>
+                    <p>留言板:「這道菜也太好吃了吧！」當你有這個想法時，歡迎使用留言板和其他使用者交流，分享彼此的感受！</p>
+                </div>
+                <div id="recomrecipe">
+                    <p><a href="recomrecipe.html"><img src="../img/recomrecipe.png" class="zoom-image" alt="" width="100" height="100"></a></p>
+                    <p class="bigtext">推薦菜單</p>
+                    <br><br>
+                    <p>推薦菜單:使用者能依照自己的需求（健身減脂或單純瘦身）來選擇自己所需的熱量（卡路里），系統將會依照所選配三道食譜給使用者。</p>
+                </div>
+                
+                <a href="#about_us"><div id="arrow_down"><i></i></div></a>
+                <div id="empty2"></div>
+                
+            </div>
+        </div>
+
+        <div class="about">
+            <div id="about_us1">
+                <p><b>這個「蔬．服」食譜網頁的目的是為了提倡<br>蔬食生活，幫助那些不知道晚餐要吃什麼的人<br>解決問題。</b></p>
+            </div>
+            <div id="about_us">
+                <p><b>此網頁的功能可以分為三大類：搜尋、食譜推薦和留言板。<br><br>搜尋:搜尋功能可以提供您來查詢此網站中出現的蔬食食譜，您可以依照「推薦菜單」<br>中出現的關鍵字來進行查詢。<br><br>食譜推薦：使用者可以依照自己的需求(健身減脂或減肥)來選擇要多少量的卡路里，選擇<br>完後我們會幫你配一套適合的菜單。<br><br>留言板：在留言板中您可以隨意地分享自己的作菜經驗，也可以打上你做菜的技巧或推薦<br>食譜，後面還附有愛心功能，當您覺得別人的提議很不錯，請毫不吝嗇給他一個愛心吧！</b></p>
+            </div>
+        </div>
+        
+        <div id="rightBar">
+            <div class="btn" id="topBtn"><span><a href="javascript:%20window.scrollTo(0,%200);"><img src="https://hosting.url.com.tw/img/go-top.png" alt=""></a></span></div>
+        </div>
+
+        
+
+        
+
+        
+
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+
+
+        
+    </div>
+
+</body>
+
+</html>

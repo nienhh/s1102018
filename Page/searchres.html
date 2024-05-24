@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../_css/site.css">
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+    <style>
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+
+        #border{
+            margin:10px auto;
+            margin-top:-90px;
+            border: 8px solid black;
+            width: 1000px;
+            height: 700px;
+            
+            border-radius: 30px;
+            display: flex;
+            position: relative;
+            
+        }
+
+        #border img{
+            margin-top: 70px;
+            margin-left: 340px ;
+            border-radius: 50px;
+        }
+
+        .content #title{
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+
+        }
+        
+
+        .text{
+            margin-top: 300px;
+            margin-left: -570px;
+            text-align: center;
+        }
+
+        .way{
+            margin-top: 400px;
+            margin-left: -700px;
+            text-align: left;
+            
+        }
+
+        
+
+        
+        
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({   
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');             
+
+            }, function () {
+
+                $(this).stop().animate({
+                    'left': '-110px',
+                    'background-color': 'rgb(250, 235, 215)'
+                }, 500, 'easeOutBounce');
+
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="一週菜單"></a>
+                <a href="index.html"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+        <div class="content">
+            <p id="title">油醋香茄乾拌麵</p>
+        </div>
+        
+
+        <div class="border" id="border">
+            <p><img src="../img/ft1200-3.jpg" alt="" width="300px" height="200px"></p><br><br>
+            
+            <p class="text">油醋香茄乾拌麵具有清爽和酸甜的風味，簡單的油醋醬讓麵條滑順好入口，搭配滑嫩的茄子和黃瓜、櫛瓜等<br>口的蔬菜，口感豐富，還具有鮮香的蔬食香氣，是道簡單無負擔的便利料理。<br><br></p>
+            <p class="way">作法：<br>
+                1.醬油(2小匙)
+                麻油 (2小匙)
+                醋 (2小匙)
+                糖或蜂蜜 (1/2小匙)，混合攪拌均勻成為醬汁。<br>
+                2.將紅辣椒切成碎狀，與作法1的調味醬汁均勻混合。<br>
+                3.茄子、櫛瓜(小黃瓜)、九層塔(香菜)、紅辣椒紅辣椒(半根)切成丁狀，進油鍋小炒。<br>烤箱預熱190度，烤15分鐘即可食用。<br>
+                4.水滾，將關廟麵條煮熟，瀝乾裝盤。<br>
+                5.將作法2、3的醬汁與蔬菜均勻拌入麵條中。<br>
+                6.撒上切碎的香菜或九層塔碎末，即可完成。</p>
+        </div>
+
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+
+
+
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蔬服食譜</title>
+    <link rel="stylesheet" href="../_css/site.css">
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+
+    <style>
+
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .input-box{
+            position: relative;
+            display: inline-block;
+            margin: 200px;
+        }
+
+        .input{
+            padding: 40px 300px 40px 20px;
+            width: 180px;
+            height: 38px;
+            font-size: 20px;
+            border: 1px solid #eee;
+            border-radius: 50px;
+            background-color: #eee;
+            transition: width .5s;
+            transition-delay: .1s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+            
+        }
+
+        .input:focus{
+            width:600px;
+            outline:none;
+            box-shadow:none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            
+        }
+
+        .input:focus+.span{
+            background-color: rgb(133, 171, 151);
+            color: #fff;
+        }
+
+
+        .span{
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            padding: 0;
+            color: #969696;
+            text-align: center;
+            background: #222;
+            border-radius: 50%;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');
+
+
+
+
+            }, function () {
+
+                $(this).stop().animate({
+                        'left': '-110px',
+                        'background-color': 'rgb(250, 235, 215)'
+                    }, 500, 'easeOutBounce');
+            });
+
+            $('.input-box').on('click', '.span', function(event) {
+                event.preventDefault(); 
+
+                var searchTerm = $('.input').val();
+                $('.input').attr('value', searchTerm);
+
+                if (searchTerm !== '') {
+                    if(searchTerm === '鳳梨奇異果汁'){
+                        window.location.href = '/Page/searchres2.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '純素菇菇菠菜鹹派'){
+                        window.location.href = 'searchres3.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '番茄湯麵'){
+                        window.location.href ='searchres4.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '油醋香茄乾拌麵'){
+                        window.location.href = 'searchres.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '綠扁豆炸醬拌飯'){
+                        window.location.href = 'searchres1.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '椒麻櫛瓜豆腐麵'){
+                        window.location.href = 'searchres5.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '醬油蕎麥麵'){
+                        window.location.href = 'searchres6.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '野菜豆包捲'){
+                        window.location.href = 'searchres7.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '蔬菜豆腐餅'){
+                        window.location.href = 'searchres8.html';
+                        $('.input').val('');
+                    }
+                    else if(searchTerm === '紫菜飯糰'){
+                        window.location.href = 'searchres9.html';
+                        $('.input').val('');
+                    }
+                    else{
+                        alert('輸入錯誤，請再輸入一遍！\n小提示：請輸入推薦菜單中的料理，例如：紫菜飯糰、蔬菜豆腐餅、野菜豆包捲、醬油蕎麥麵、椒麻櫛瓜豆腐麵、綠扁豆炸醬拌飯、油醋香茄乾拌麵、番茄湯麵、純素菇菇菠菜鹹派、鳳梨奇異果汁');
+                        $('.input').val('');
+                    }
+                
+                }
+
+                
+      });
+
+      
+
+
+
+
+            });
+        
+
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="留言板"></a>
+                <a href="index.html"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="main">
+                <form id="search-form">
+                    <div class="input-box">
+                        <input type="text" class="input"  placeholder="請輸入食譜搜尋">
+                        <span class="span">搜</span>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+    </div>
+    
+
+    
+    
+</body>
+</html>

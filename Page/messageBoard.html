@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../_css/site.css">
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+    <style>
+
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+
+        .submitbutton{
+            background-color: rgb(112, 155, 68);
+            border: none;
+            color: white;
+            padding: 5px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            
+        }
+
+        #messageInput{
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background-color: rgb(216, 227, 211); 
+            border-radius: 10px; 
+        }
+
+        #messageBoard {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 100px; 
+            border-radius: 30px;
+            font-size: 16px;
+            margin-top: 60px;
+        }
+
+        #input{
+            position:fixed;
+            min-height: 100vh;
+            margin-left:230px;
+            padding: 0;
+            
+        }
+
+        .message {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed gray; 
+            padding-bottom: 5px; 
+            display: flex; 
+            justify-content: space-between; 
+            
+        }
+
+        .message .text {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .message .time {
+            font-size: 12px;
+            color: gray;
+            margin-right: 0px;
+        }
+
+        #title{
+            font-size: xx-large;
+            text-align: center;
+        }
+
+        #content{
+            text-align: center;
+            color: #b3b1b1;
+        }
+
+        .text{
+            margin: 10px;
+        }
+        
+        .heart-icon{
+            margin-right: -500px;
+        }
+
+        .reply-button{
+            margin-left: 300px;
+            width: 80px;
+            height: 30px;
+        }
+
+        .reply-input{
+            font-size: 13px;
+        }
+
+        .info{
+            margin-left: 10px;
+        }
+
+        .reply-message{
+            border-bottom: 1px dashed gray;
+        }
+        
+
+        
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({   
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');             
+
+                }, function () {
+
+                $(this).stop().animate({
+                    'left': '-110px',
+                    'background-color': 'rgb(250, 235, 215)'
+                }, 500, 'easeOutBounce');
+
+            });
+
+            //
+            var messageInput = $('#messageInput');
+            var submitButton = $('#submitButton');
+            var messageBoard = $('#messageBoard');
+            
+
+            
+
+      
+            submitButton.on('click', function() {
+                    messageBoard.off('click', '.heart-icon');
+
+                    var messageText = messageInput.val();
+
+                    if (messageText.trim() === '') {
+                        alert('發送失敗，請確定是否留言正確');
+                        return;
+                    }
+
+                    var messageDiv = $('<div class="message"></div>');
+                    var messageTextDiv = $('<div class="text"></div>').text(messageText);
+                    var messageInfoDiv = $('<div class="info"></div>');
+                    var messageTimeDiv = $('<div class="time"></div>').text(getCurrentTime());
+                    var heartIcon = '<img src="../img/heart.png" alt="heart" class="heart-icon" width="20px" height="20px"><br>';
+                    var counter = $('<span class="counter">0</span>');
+                    var replyButton = $('<br><button class="reply-button">回覆</button>');
+                    var replyContainer = $('<div class="reply-container"></div>');
+
+                    messageInfoDiv.append(messageTimeDiv);
+                    messageInfoDiv.append(heartIcon);
+                    messageInfoDiv.append(counter);
+
+                    messageDiv.append(messageTextDiv);
+                    messageDiv.append(replyContainer);
+                    messageDiv.append(replyButton);
+                    messageDiv.append(messageInfoDiv);
+                    messageBoard.append(messageDiv);
+
+                    messageInput.val('');
+
+                    messageBoard.on('click', '.heart-icon', function() {
+                        var $counter = $(this).siblings('.counter');
+
+                        var count = parseInt($counter.text());
+                        $counter.text(count + 1);
+                    });
+
+                    messageBoard.on('click', '.reply-button', function() {
+                        var $replyContainer = $(this).siblings('.reply-container');
+                        var replyInput = $('<input type="text" class="reply-input">');
+                        var replySubmitButton = $('<button class="reply-submit">提交</button>');
+
+                        $replyContainer.empty();
+                        $replyContainer.append(replyInput);
+                        $replyContainer.append(replySubmitButton);
+
+                        replySubmitButton.on('click', function(event) {
+                            event.stopPropagation();
+                            var replyText = replyInput.val();
+
+                            if (replyText.trim() !== '') {
+                            var replyMessage = $('<div class="reply-message"></div>').text(replyText);
+                            $replyContainer.append(replyMessage);
+                            }
+
+                            replyInput.val('');
+                        });
+                    });
+            });
+
+            
+
+            function getCurrentTime() {
+                var now = new Date();
+                var year = now.getFullYear().toString();
+                var month = (now.getMonth() + 1).toString().padStart(2, '0');
+                var day = now.getDate().toString().padStart(2, '0');
+                var hours = now.getHours().toString().padStart(2, '0');
+                var minutes = now.getMinutes().toString().padStart(2, '0');
+                var time = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+                return time;
+            }
+
+
+
+            
+
+
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="留言板"></a>
+                <a href="index.html"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+
+        <div class="content">
+            <p id="title">匿名留言板</p>
+            <p id="content">把你的想法寫在這裡吧！</p>
+            <br>
+
+            <div id="input">
+                <input type="text" id="messageInput" placeholder="請輸入留言！">
+                <button id="submitButton" class="submitbutton">發送</button>
+            </div>
+            
+
+            <div id="messageBoard">
+
+            </div>
+
+            
+
+            
+
+            
+            
+        </div>
+
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+    </div>
+
+</body>
+</html>

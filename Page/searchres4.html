@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../_css/site.css">
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+    <style>
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+
+        #border{
+            margin:10px auto;
+            margin-top:-90px;
+            border: 8px solid black;
+            width: 1000px;
+            height: 700px;
+            
+            border-radius: 30px;
+            display: flex;
+            position: relative;
+            
+        }
+
+        #border img{
+            margin-top: 70px;
+            margin-left: 340px ;
+            border-radius: 50px;
+        }
+
+        .content #title{
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+
+        }
+        
+
+        .text{
+            margin-top: 300px;
+            margin-left: -570px;
+            text-align: center;
+        }
+
+        .way{
+            margin-top: 350px;
+            margin-left: -550px;
+            text-align: left;
+            
+        }
+
+        
+
+        
+        
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({   
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');             
+
+            }, function () {
+
+                $(this).stop().animate({
+                    'left': '-110px',
+                    'background-color': 'rgb(250, 235, 215)'
+                }, 500, 'easeOutBounce');
+
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="一週菜單"></a>
+                <a href="index.html"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+        <div class="content">
+            <p id="title">番茄湯麵</p>
+        </div>
+        
+
+        <div class="border" id="border">
+            <p><img src="../img//wl1400-3.jpg" alt="" width="300px" height="200px"></p><br><br>
+
+            
+            <p class="way">食材：<br>
+                洋蔥(1顆)、紅蘿蔔(1小根)、乾香菇(2-3朵)、番茄(2小顆/1大顆)、玉米(1根)、麵(依照自身來調整麵量)。<br><br>作法：<br>
+            1.洋蔥切粗絲，乾香菇紅蘿蔔細絲，蕃茄去皮切塊(*蕃茄去皮：屁股切十字放進滾水30秒-1分鐘)，玉米切片。<br>
+            2.(平底鍋或炒鍋都可以)加點油，依序加入洋蔥、香菇、紅蘿蔔炒(分開輪流放！)，炒一下再加入蕃茄並加入半碗水悶煮。<br>
+            3.準備另外一個鍋子並倒入食用水和玉米，悶煮5-10分鐘。<br>
+            4.將麵條加入鍋中，煮3-5分鐘(依照自己想吃的軟硬度)。<br>
+            5.將麵放進去番茄湯中，就完成了！</p>
+        </div>
+
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+
+
+
+
+    </div>
+    
+</body>
+</html>
