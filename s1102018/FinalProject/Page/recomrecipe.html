@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../_css/site.css">
+    <link rel="stylesheet" href="../_css/jquery-ui.min.css">
+    <script src="../_js/jquery.min.js"></script>
+    <script src="../_js/jquery-ui.min.js"></script>
+    <style>
+        #header {
+            position: absolute;
+            top: 0;
+            vertical-align: middle;
+            width: 100%;
+            padding: 30px 0 50px 0;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 1px rgba(255, 255, 255, .5);
+            font: normal 28px 'League Gothic', Arial, sans-serif;
+            letter-spacing: 2px;
+        }
+
+        #dashboard {
+            width: 110px;
+            background-color: rgb(250, 235, 215);
+            padding: 100px 105px 50px 30px;
+            position: fixed;
+            left: -110px;
+            z-index: 100;
+            border-radius: 10px 50px 50px 10px;
+
+        }
+
+        #dashboard img {
+            margin-bottom: 30px;
+            /*border: 1px solid rgb(0,0,0);*/
+        }
+
+        #recipeContainer{
+            max-width: 950px;
+	        margin: 0 auto;
+	        position: relative;
+            
+        }
+
+        .recipeBorder{
+            border: 7px solid black;
+            border-radius: 30px;
+            padding: 20px;
+            width: 300px;
+            height: 380px;
+            float: left;
+            text-align: center;
+            margin-right: 4px;
+            
+        }
+
+        select{
+            width: 30%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            font-size: 16px;
+        }
+
+        button{
+            border-left: 500px;
+            padding: 5px;
+            font-size: 15px;
+            background-color: antiquewhite;
+            margin-left: 90px;
+        }
+
+        form{
+            margin-left: 240px;
+        }
+
+        .zoom-effect {
+            transform: scale(1.2);
+            transition: transform 0.8s ease;
+        }
+
+
+    </style>
+    <script>
+        
+        $(document).ready(function () {
+
+            $('#dashboard').hover(function () {
+
+                $(this).stop().animate({
+                    'left': '0px',
+                    'background-color': 'rgb(245, 211, 168)'
+                }, 500, 'easeInSine');
+
+
+
+
+            }, function () {
+
+                $(this).stop().animate({
+                    'left': '-110px',
+                    'background-color': 'rgb(250, 235, 215)'
+                }, 500, 'easeOutBounce');
+            });
+
+            const mealForm = document.getElementById('mealForm');
+            const recipeContainer = document.getElementById('recipeContainer');
+            const submitButton = document.getElementById('submit-button');
+
+            submitButton.addEventListener('mouseover', function () {
+                this.classList.add('zoom-effect');
+            });
+
+            submitButton.addEventListener('mouseout', function () {
+                this.classList.remove('zoom-effect');
+            }); 
+        
+            mealForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const goal = document.getElementById('goal').value;
+            const calories = document.getElementById('calories').value;
+            
+            const recipe = generateRecipe(goal, calories);
+            
+            // 清空現有的食譜容器內容
+            recipeContainer.innerHTML = '';
+            
+            // 新增食譜元素至容器
+            const recipeDiv = document.createElement('div');
+            recipeDiv.innerHTML = recipe;
+            recipeDiv.classList.add('recipe-container');
+            recipeContainer.appendChild(recipeDiv);
+            //$('#recipeContainer').addClass('recipeBorder');
+            $('.meal').addClass('recipeBorder');
+            
+        });
+        
+        function generateRecipe(goal, calories) {
+            let recipe = '';
+            
+            if (goal === 'weightLoss') {
+                recipe = '<div><strong>減肥食譜菜單</strong></div><br>';
+                
+                if (calories === '1200') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>牛奶燕麥粥(283卡路里)、水煮蛋(79卡路里)、蘋果(52.1卡路里)<br><br><img src="../img/wl1200-1.jpg" alt="" width="250px" height="200px" ><br>總共414.1卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>綠扁豆炸醬拌飯(280卡路里)、紫菜蛋花湯(80卡路里)<br><br><img src="../img/wl1200-2.jpg" alt="" width="250px" height="200px"><br>總共360卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>椒麻櫛瓜豆腐麵(360.8卡路里)、蒸蛋(64卡路里)<br><br><img src="../img/wl1200-3.jpg" alt="" width="250px" height="200px"><br>總共424.8卡路里</div>';
+                } else if (calories === '1300') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>烤馬鈴薯(278卡路里)、水煮蛋(79卡路里)、香蕉(100卡路里)<br><br><img src="../img/wl1300-1.jpg" alt="" width="250px" height="200px"><br>總共457卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>酪梨沙拉(134卡路里)、醬油蕎麥麵(230卡路里)<br><br><img src="../img/wl1300-2.jpg" alt="" width="250px" height="200px"><br>總共364卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>奇異果(59卡路里)、高麗菜炒飯(400大卡)<br><br><img src="../img/wl1300-3.jpg" alt="" width="250px" height="200px"><br>總共459卡路里</div>';
+                } else if (calories === '1400') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>全麥吐司+無糖花生醬(280卡路里)、100ml無糖豆漿(32卡路里)、蘋果(52.1卡路里)<br><br><img src="../img/wl1400-1.jpg" alt="" width="250px" height="200px"><br>總共364.1卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>全麥麵包+起司、小黃瓜、番茄(343.1卡路里)+鳳梨奇異果汁(109卡路里)<br><br><img src="../img/wl1400-2.jpg" alt="" width="250px" height="200px"><br>總共452.1卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>番茄湯麵(480.7卡路里)+炒花椰菜(50卡路里)<br><br><br><img src="../img/wl1400-3.jpg" alt="" width="250px" height="200px"><br<>總共530.7卡路里</div>';
+                } else if (calories === '1500') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>燕麥+水果乾麥片+125ml希臘優格(330卡路里)<br><br><img src="../img/wl1500-1.jpg" alt="" width="220px" height="200px"><br>總共459卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>高麗菜炒麵(486.3卡路里)、味噌湯(93卡路里)、蘋果(52.1卡路里)<br><br><img src="../img/wl1500-2.jpg" alt="" width="250px" height="200px"><br>總共631.4卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>150g烤地瓜(200卡路里)、白菜滷(220卡路里)<br><br><img src="../img/wl1500-3.jpg" alt="" width="250px" height="200px"><br>總共420卡路里</div>';
+                }
+            } else if (goal === 'fitness') {
+                recipe = '<div><strong>健身食譜菜單</strong></div><br>';
+                
+                if (calories === '1200') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>蛋白蔬菜煎餅(220卡路里)、200ml無糖豆漿(64卡路里)、香蕉(100卡路里)<br><br><img src="../img/ft1200-1.jpg" alt="" width="230px" height="200px"><br>總共384卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>蔬菜豆腐餅(208.32卡路里)、小米粥(92卡路里)、鳳梨奇異果汁(109卡路里)<br><br><img src="../img/ft1200-2.jpg" alt="" width="230px" height="200px"><br>總共409.32卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>油醋香茄乾拌麵(250卡路里)、番茄湯(81.6卡路里)、炒青江菜(62卡路里)、水煮蛋(79卡路里)<br><br><img src="../img/ft1200-3.jpg" alt="" width="250px" height="200px"><br>總共472.6卡路里</div>';
+                } else if (calories === '1300') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>烤地瓜(140卡路里)、莓果優格飲(170卡路里)<br><br><img src="../img/ft1300-1.jpg" alt="" width="250px" height="200px"><br>總共310卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>紫菜飯糰(310卡路里)、炒菠菜(204卡路里)<br><br><img src="../img/ft1300-2.jpg" alt="" width="250px" height="200px"><br>總共514卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>豆乾青龍椒炒麵(340卡路里)、野菜豆包捲(103卡路里)、味噌湯(93卡路里)<br><br><img src="../img/ft1300-3.jpg" alt="" width="250px" height="200px"<br>總共536卡路里</div>';
+                } else if (calories === '1400') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>純素菇菇菠菜鹹派(302卡路里)、水果十穀飲(104卡路里)<br><br><img src="../img/ft1400-1.jpg" alt="" width="250px" height="200px"><br>總共406卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>鷹嘴豆番茄碎豆腐(377卡路里)、堅果薏仁飲(115卡路里)<br><br><img src="../img/ft1400-2.jpg" alt="" width="250px" height="200px"><br>總共492卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>臭豆腐湯麵(343卡路里)、水果蔬菜飲(120卡路里)<br><br><img src="../img/ft1400-3.jpg" alt="" width="250px" height="200px"><br>總共463卡路里</div>';
+                } else if (calories === '1500') {
+                    recipe += '<div class="meal"><strong>早餐：</strong><br><br>水果燕麥粥優格(388卡路里)、泰奶蛋白飲(123卡路里)<br><br><br><img src="../img/ft1500-1.jpg" alt="" width="220px" height="200px"><br>總共511卡路里</div>';
+                    recipe += '<div class="meal"><strong>午餐：</strong><br><br>豆腐排素食便當(432卡路里)、炒高麗菜(150卡路里)<br><br><br><img src="../img/ft1500-2.jpg" alt="" width="250px" height="200px"><br>總共482卡路里</div>';
+                    recipe += '<div class="meal"><strong>晚餐：</strong><br><br>豆皮拿坡里義大利麵(285卡路里)、烤花椰菜(103卡路里)、奇異果蛋白飲(148卡路里)<br><br><img src="../img/ft1500-3.jpg" alt="" width="250px" height="200px"><br>總共536卡路里</div>';
+                }
+            }
+            
+            //recipe += '<br>每天攝取熱量：' + calories + ' 卡路里';
+            
+            return recipe;
+        }
+
+
+
+
+
+
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="header">
+            <a href="index.html"><img src="../img/pagelogo.png" width="250" height="100" alt=""></a>
+        </div>
+        <div id="dashboard">
+            <div class="img" id="img">
+                <a href="search.html"><img src="../img/search.png" width="70" height="70" alt="search" title="搜尋"></a>
+                <a href="recomrecipe.html"><img src="../img/recomrecipe.png" width="70" height="70" alt="recomrecipe" title="推薦食譜"></a>
+                <a href="messageBoard.html"><img src="../img/messageBoard.png" width="70" height="70" alt="weekrecipe" title="留言板"></a>
+                <a href="index.html"><img src="../img/aboutus.png" width="70" height="70" alt="aboutus" title="關於蔬服"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="main">
+                <form action="recomrecipe.html" id="mealForm">
+                    <label for="goal">請選擇食譜目的：</label>
+                    <select name="" id="goal">
+                        <option value="weightLoss">減肥</option>
+                        <option value="fitness">健身減脂</option>
+                    </select>
+
+                    <br><br>
+
+                    <label for="calories">請選擇攝取熱量：</label>
+                    <select id="calories">
+                        <option value="1200">1200卡路里</option>
+                        <option value="1300">1300卡路里</option>
+                        <option value="1400">1400卡路里</option>
+                        <option value="1500">1500卡路里</option>
+                    </select>
+
+                    <br><br><br>
+
+                    <button type="submit" id="submit-button">產生食譜菜單</button>
+
+                </form>
+            </div>
+        </div>
+        
+        <div id="recipeContainer"></div>
+        
+        <footer>
+            <p>--蔬食食譜--</p>
+        </footer>
+        
+
+    </div>
+    
+</body>
+</html>
